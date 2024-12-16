@@ -1,0 +1,97 @@
+<% layout('./layout/page.ejs') %>
+
+<style>
+    body {
+        background-color: #ffffff;
+        color: #333;
+    }
+
+    h2 {
+        text-align: center;
+        margin-bottom: 20px;
+        color: #003366; /* Темно-синий цвет заголовка */
+    }
+
+    .form-container {
+        max-width: 600px;
+        margin: 0 auto;
+        background: rgba(255, 255, 255, 0.9); /* Полупрозрачный белый фон для контраста */
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+
+    .form-input,
+    .form-textarea {
+        width: 100%;
+        padding: 10px;
+        margin: 10px 0;
+        border: 1px solid #007bff; /* Синий цвет для рамок */
+        border-radius: 5px;
+        font-size: 16px;
+        transition: border-color 0.3s;
+    }
+
+    .form-input:focus,
+    .form-textarea:focus {
+        border-color: #0056b3; /* Темнее при фокусе */
+        outline: none;
+    }
+
+    .form-textarea {
+        resize: vertical; /* Позволяет изменять размер текстовой области только по вертикали */
+        height: 100px; /* Задаем высоту по умолчанию */
+    }
+
+    .form-button {
+        background-color: #0056b3; /* Более темный синий цвет для кнопки */
+        color: white;
+        border: none;
+        padding: 12px 20px; /* Увеличенные отступы для кнопки */
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px; /* Увеличен размер шрифта */
+        transition: background-color 0.3s;
+        width: 100%; /* Ширина кнопки на 100% */
+        margin-top: 10px; /* Добавлен отступ сверху */
+    }
+
+    .form-button:hover {
+        background-color: #004494; /* Еще темнее при наведении */
+    }
+
+    @media (max-width: 768px) {
+        .form-container {
+            padding: 15px; /* Уменьшаем отступы на мобильных устройствах */
+        }
+
+        h2 {
+            font-size: 1.5rem; /* Уменьшаем размер заголовка на мобильных устройствах */
+        }
+    }
+</style>
+
+<main>
+    <!-- Форма для редактирования вакансии -->
+    <form action="/editvacancies" method="POST" class="form-container">
+        <input type="hidden" name="vacancyId" value="<%= vacancy.id %>">
+        
+        <!-- Раздел для редактирования вакансии -->
+        <h3>Основные данные вакансии</h3>
+        <input type="text" name="title" class="form-input" placeholder="Название вакансии" value="<%= vacancy.title %>" required>
+        <input type="text" name="company" class="form-input" placeholder="Компания" value="<%= vacancy.company %>" required>
+        <textarea name="description" class="form-textarea" placeholder="Описание вакансии" required><%= vacancy.description %></textarea>
+        <input type="text" name="location" class="form-input" placeholder="Локация" value="<%= vacancy.location %>" required>
+        <input type="number" name="salary" class="form-input" placeholder="Зарплата" value="<%= vacancy.salary %>" required>
+
+        <!-- Раздел для редактирования данных jobdetail -->
+        <h3>Детали работы</h3>
+        <textarea name="requirements" class="form-textarea" placeholder="Требования к кандидату" required><%= jobdetail.requirements %></textarea>
+        <textarea name="responsibilities" class="form-textarea" placeholder="Обязанности" required><%= jobdetail.responsibilities %></textarea>
+        <input type="text" name="employment_type" class="form-input" placeholder="Тип занятости" value="<%= jobdetail.employment_type %>" required>
+
+        <button type="submit" class="form-button">Обновить вакансию</button>
+    </form>
+</main>

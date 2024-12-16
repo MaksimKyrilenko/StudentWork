@@ -1,0 +1,9 @@
+<% layout('./layout/page.ejs') %>
+
+<div class="container">
+  <div class="alert alert-danger" role="alert">
+    <h1 class="alert-heading"><%= message %></h1>
+    <h2><%= error.status %></h2>
+    <pre><%= error.stack %></pre>
+  </div>
+</div>

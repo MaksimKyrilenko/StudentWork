@@ -1,0 +1,152 @@
+<% layout('./layout/page.ejs') %>
+
+<style>
+    body {
+        background-color: #f8f9fa;
+        color: #333;
+        margin: 0;
+        padding: 0;
+        font-family: Arial, sans-serif;
+    }
+
+    h1 {
+        text-align: center;
+        margin: 20px 0 30px;
+        color: #007bff;
+        font-size: 2.5rem; /* Increased heading size */
+        font-weight: bold;
+    }
+
+    .container {
+        max-width: 1200px; /* Максимальная ширина контейнера */
+        margin: 0 auto; /* Центрирование контейнера по горизонтали */
+        padding: 20px; /* Отступы внутри контейнера */
+        border-radius: 10px; /* Закругленные углы */
+        background-color: #ffffff; /* Белый фон для контейнера */
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Легкая тень для контейнера */
+        margin-top: 20px;
+    }   
+
+    .nav-bar {
+        display: flex;
+        justify-content: center; /* Center the buttons */
+        margin-bottom: 30px;
+    }
+
+    .nav-bar a {
+        padding: 12px 20px;
+        border: none;
+        cursor: pointer;
+        font-size: 16px;
+        background-color: #007bff;
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+        transition: background-color 0.3s, transform 0.3s;
+        margin: 0 10px;
+    }
+
+    .nav-bar a:hover {
+        background-color: #0056b3;
+        transform: translateY(-2px);
+    }
+
+    .vacancy-container {
+        display: flex;
+        flex-wrap: wrap; /* Allow wrapping */
+        gap: 20px; /* Space between cards */
+        padding: 20px; /* Padding around the container */
+    }
+
+    .vacancy-card {
+        background-color: #ffffff;
+        border-radius: 12px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        flex: 1 1 calc(30% - 20px); /* Responsive card width */
+        min-width: 250px; /* Minimum card width */
+        transition: transform 0.2s;
+    }
+
+    .vacancy-card:hover {
+        transform: translateY(-3px);
+    }
+
+    .vacancy-card h3 {
+        margin-top: 0;
+        color: #007bff; /* Title color */
+    }
+
+    .vacancy-card p {
+        margin: 10px 0; /* Spacing for paragraphs */
+    }
+
+    .action-link {
+        color: #007bff;
+        text-decoration: none;
+        padding: 8px 12px;
+        border: 1px solid #007bff;
+        border-radius: 5px;
+        transition: background-color 0.3s, color 0.3s;
+        margin-right: 10px; /* Space between links */
+        font-weight: bold;
+        cursor: pointer;
+    }
+
+    .action-link:hover {
+        background-color: #007bff;
+        color: white;
+    }
+
+    .no-vacancies {
+        text-align: center;
+        padding: 20px;
+        font-size: 1.5rem; /* Increased text size */
+        color: #666;
+    }
+
+    @media (max-width: 768px) {
+        h1 {
+            font-size: 1.8rem; /* Decreased heading size on mobile */
+        }
+
+        .vacancy-card {
+            flex: 1 1 calc(100% - 20px); /* Full width on mobile */
+        }
+    }
+</style>
+
+<main>
+    <div class="container">
+        <h1>Список ваших вакансий</h1>
+        
+        <!-- Навигационная панель -->
+        <div class="nav-bar">
+            <a href="/profile">Профиль</a>
+            <a href="/myvacancies">Мои вакансии</a>
+            <a href="/submittedresumes">Поданные резюме</a>
+        </div>
+
+        <div class="vacancy-container">
+            <% if (vacancies.length > 0) { %>
+                <% vacancies.forEach(vacancy => { %>
+                    <div class="vacancy-card">
+                        <h3><%= vacancy.title %></h3>
+                        <p><strong>Описание:</strong> <%= vacancy.description %></p>
+                        <p><strong>Локация:</strong> <%= vacancy.location %></p>
+                        <p><strong>Зарплата:</strong> <%= vacancy.salary %></p>
+                        <div>
+                            <a class="action-link" href="/editvacancies?id=<%= vacancy.id %>">Редактировать</a>
+                            <form action="/deletevacancy" method="POST" style="display:inline;">
+                                <input type="hidden" name="vacancyId" value="<%= vacancy.id %>">
+                                <!-- <button type="submit" class="action-link" style="background: none; border: none; cursor: pointer;">Удалить</button> -->
+                            </form>
+                        </div>
+                    </div>
+                <% }); %>
+            <% } else { %>
+                <div class="no-vacancies">Нет вакансий.</div>
+            <% } %>
+        </div>
+    </div>
+</main>

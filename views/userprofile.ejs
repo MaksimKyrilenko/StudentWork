@@ -1,0 +1,293 @@
+<% layout('./layout/page.ejs') %>
+
+<style>
+    /* Оставим существующие стили */
+    body {
+        background-color: #ffffff;
+        margin: 0;
+        padding: 0;
+        font-family: Arial, sans-serif;
+    }
+
+    .user-info {
+        background: linear-gradient(135deg, #ffffff 0%, #f9f9f9 100%);
+        border-radius: 12px;
+        padding: 30px;
+        margin: 20px auto;
+        max-width: 600px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        border: 1px solid #e0e0e0;
+    }
+
+    .user-info:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+    }
+
+    .user-info h2 {
+        font-size: 28px;
+        color: #333;
+        margin-bottom: 15px;
+        text-align: center;
+        transition: color 0.3s ease;
+    }
+
+    .user-info h2:hover {
+        color: #0056b3;
+    }
+
+    .user-info p {
+        font-size: 18px;
+        color: #555;
+        line-height: 1.6;
+        margin: 10px 0;
+    }
+
+    .user-info strong {
+        color: #007bff;
+    }
+
+    .skills-list {
+        list-style-type: none;
+        padding: 0;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .skills-list li {
+        background-color: #007bff;
+        color: white;
+        border-radius: 20px;
+        padding: 8px 15px;
+        margin: 5px;
+        font-size: 14px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+
+    .skills-list li:hover {
+        background-color: #0056b3;
+        transform: scale(1.1);
+    }
+
+    .btn4, .btn-resume, .btn-chat {
+        display: inline-block;
+        padding: 12px 20px;
+        background-color: #007bff;
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+        transition: background-color 0.3s, transform 0.3s ease;
+        margin-top: 20px;
+        font-weight: bold;
+        text-align: center;
+        width: 100%;
+    }
+
+    .btn4:hover, .btn-resume:hover, .btn-chat:hover {
+        background-color: #0056b3;
+        transform: scale(1.05);
+        color: #ffffff;
+    }
+
+    @media (max-width: 768px) {
+        .user-info {
+            padding: 20px;
+        }
+
+        .user-info h2 {
+            font-size: 24px;
+        }
+
+        .user-info p {
+            font-size: 16px;
+        }
+    }
+
+    /* Модальное окно */
+    .modal {
+        display: none;
+        position: fixed;
+        z-index: 1000;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(0, 0, 0, 0.7);
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+
+    .modal.show {
+        display: block;
+        opacity: 1;
+    }
+
+    .modal-content {
+        background-color: #fefefe;
+        margin: 10% auto;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 80%;
+        max-width: 600px;
+        border-radius: 8px;
+        animation: slideIn 0.3s ease;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    @keyframes slideIn {
+        from {
+            transform: translateY(-30px);
+            opacity: 0;
+        }
+        to {
+            transform: translateY(0);
+            opacity: 1;
+        }
+    }
+
+    .close {
+        color: #aaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+        transition: color 0.3s ease;
+    }
+
+    .close:hover,
+    .close:focus {
+        color: black;
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+    .form-group {
+        margin-bottom: 15px;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    textarea {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+        transition: border-color 0.3s ease;
+    }
+
+    input[type="text"]:focus,
+    input[type="email"]:focus,
+    textarea:focus {
+        border-color: #007bff;
+        outline: none;
+    }
+
+    .btn5 {
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        padding: 10px 15px;
+        cursor: pointer;
+        transition: background-color 0.3s, transform 0.3s ease;
+        width: 100%;
+    }
+
+    .btn5:hover {
+        background-color: #0056b3;
+        transform: scale(1.05);
+        color: #ffffff;
+    }
+</style>
+
+<div>
+    <section class="user-info">
+        <h2><%= userprofile.name || 'Не заполнено' %></h2>
+        <p><strong>Университет:</strong> <%= userprofile.university || 'Не заполнено' %></p>
+        <p><strong>Email:</strong> <%= userprofile.email || 'Не заполнено' %></p>
+
+        <p><strong>Навыки:</strong></p>
+        <ul class="skills-list">
+            <% if (userprofile.skills && userprofile.skills.trim()) { %>
+                <% userprofile.skills.split(',').forEach(skill => { %>
+                    <li><%= skill.trim() %></li>
+                <% }); %>
+            <% } else { %>
+                <li>Нет навыков</li>
+            <% } %>
+        </ul>
+
+        <p><strong>Опыт:</strong> <%= userprofile.experience || 'Не заполнено' %></p>
+
+            <!-- Выводим кнопки только для студентов -->
+            <a href="javascript:void(0);" class="btn4" id="editProfileBtn">Редактировать профиль</a>
+            <a href="/submittedresumesuser" class="btn-resume">Мои поданные резюме</a>
+            <a href="/chat" class="btn-chat">Помощь с резуме</a>
+    </section>
+
+    <!-- Модальное окно для редактирования профиля -->
+    <div id="editProfileModal" class="modal">
+        <div class="modal-content">
+            <span class="close" id="closeModal">&times;</span>
+            <h2>Редактировать профиль студента</h2>
+            <form action="/update-user-profile" method="POST">
+                <input type="hidden" name="id" value="<%= userprofile.id %>">
+
+                <div class="form-group">
+                    <label>Имя</label>
+                    <input type="text" name="name" value="<%= userprofile.name || '' %>" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" name="email" value="<%= userprofile.email || '' %>" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Университет</label>
+                    <input type="text" name="university" value="<%= userprofile.university || '' %>" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Навыки (через запятую)</label>
+                    <input type="text" name="skills" value="<%= userprofile.skills || '' %>">
+                </div>
+
+                <div class="form-group">
+                    <label>О себе</label>
+                    <textarea name="experience"><%= userprofile.experience || '' %></textarea>
+                </div>
+
+                <button type="submit" class="btn5">Сохранить изменения</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Получаем элементы
+    const modal = document.getElementById("editProfileModal");
+    const openModalButton = document.getElementById("editProfileBtn");
+    const closeModalButton = document.getElementById("closeModal");
+
+    // Открытие модального окна
+    openModalButton.onclick = function() {
+        modal.classList.add("show");
+    };
+
+    // Закрытие модального окна
+    closeModalButton.onclick = function() {
+        modal.classList.remove("show");
+    };
+
+    // Закрытие модального окна при клике вне его
+    window.onclick = function(event) {
+        if (event.target === modal) {
+            modal.classList.remove("show");
+        }
+    };
+</script>

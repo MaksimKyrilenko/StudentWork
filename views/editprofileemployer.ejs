@@ -1,0 +1,126 @@
+<% layout('./layout/page.ejs') %>
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 20px;
+    }
+
+    h2 {
+        text-align: center;
+        color: #333;
+    }
+
+    .form-container {
+        max-width: 600px;
+        margin: 20px auto; /* Добавлено отступ сверху и снизу */
+        background: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .form-group {
+        margin-bottom: 15px;
+    }
+
+    label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: bold;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="tel"],
+    textarea {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+
+    textarea {
+        resize: vertical;
+    }
+
+    .error {
+        color: red;
+        font-size: 14px;
+        margin-top: 10px;
+    }
+
+    button {
+        width: 100%;
+        padding: 10px;
+        background-color: #5cb85c;
+        border: none;
+        border-radius: 4px;
+        color: white;
+        font-size: 16px;
+        cursor: pointer;
+    }
+
+    button:hover {
+        background-color: #4cae4c;
+    }
+    .btn-back {
+        display: block; /* Делаем кнопку блочным элементом для центрирования */
+        width: 100%; /* Ширина кнопки 100% */
+        padding: 10px 15px;
+        background-color: #007bff; /* Цвет кнопки "Назад" */
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+        border: none;
+        cursor: pointer;
+        margin-top: 20px;
+        text-align: center;
+    }
+
+    .btn-back:hover {
+        background-color: #0056b3; /* Цвет кнопки "Назад" при наведении */
+    }
+</style>
+
+<div class="form-container">
+    <h2>Редактировать профиль работодателя</h2>
+    <form action="/update-employer-profile" method="POST">
+        <input type="hidden" name="id" value="<%= employerprofile.id %>">
+
+        <div class="form-group">
+            <label>Имя компании:</label>
+            <input type="text" name="company_name" value="<%= employerprofile.company_name || '' %>" required>
+        </div>
+
+        <div class="form-group">
+            <label>Контактный Email:</label>
+            <input type="email" name="contactEmail" value="<%= employerprofile.contactEmail || '' %>" required>
+        </div>
+
+        <div class="form-group">
+            <label>Описание компании:</label>
+            <textarea name="company_description" required><%= employerprofile.company_description || '' %></textarea>
+        </div>
+
+        <div class="form-group">
+            <label>Телефон:</label>
+            <input type="tel" name="contactPhone" value="<%= employerprofile.contactPhone || '' %>" required>
+        </div>
+
+        <div class="form-group">
+            <label>Локация:</label>
+            <input type="text" name="location" value="<%= employerprofile.location || '' %>">
+        </div>
+
+        <% if (error) { %>
+            <p class="error"><%= error %></p>
+        <% } %>
+
+        <button type="submit">Сохранить изменения</button>
+        <a href="/myvacancies" class="btn-back">Назад</a> <!-- Кнопка "Назад" -->
+    </form>
+</div>

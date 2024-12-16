@@ -1,0 +1,206 @@
+<% layout('./layout/page.ejs') %>
+<div class="container">
+    <div class="card shadow-lg p-4 form-container">
+        <h1 class="display-5 text-center mb-4">Регистрация</h1> <!-- Размер заголовка уменьшен -->
+        <form class="form-horizontal" action="/registration" method="post" onsubmit="return validateForm()">
+            <div class="form-group mb-3">
+                <label class="control-label">Email</label>
+                <input class="form-control" type="email" placeholder="Введите email" name="email" required/>
+                <% if(error) { %>
+                    <div class="alert alert-danger mt-2"><%= error %></div>
+                <% } %>
+            </div>
+            <div class="form-group mb-3">
+                <label class="control-label">Пароль</label>
+                <input class="form-control" type="password" placeholder="Введите пароль" name="password" id="password" required/>
+                <small id="passwordHelp" class="form-text text-muted">
+                    Пароль должен содержать минимум 8 символов и хотя бы одну цифру.
+                </small>
+            </div>
+            <div class="form-group mb-4">
+                <label class="control-label">Роль</label>
+                <select class="form-control" name="role" required>
+                    <option value="">Выберите роль</option>
+                    <option value="student">Студент</option>
+                    <option value="employer">Работодатель</option>
+                </select>
+            </div>
+            <div class="text-center">
+                <input class="btn btn-primary btn-lg" type="submit" value="Зарегистрироваться"/>
+            </div>
+            <div class="text-center mt-3">
+                <p>Уже есть аккаунт? <a href="/logreg">Войти</a></p>
+            </div>
+        </form>   
+    </div>     
+</div>
+
+<style>
+    .form-container {
+        max-width: 500px;
+        margin: 0 auto;
+        border: 1px solid #1e4d8f; /* Более глубокий синий цвет */
+        padding: 30px; /* Увеличиваем отступ внутри формы */
+        border-radius: 15px; /* Увеличиваем скругление углов */
+        background-color: #ffffff; /* Устанавливаем белый цвет фона */
+    }
+
+    .form-group label {
+        font-weight: bold; /* Жирный шрифт для меток */
+    }
+
+    .btn-primary {
+        width: 100%; /* Кнопка на всю ширину */
+        background: linear-gradient(135deg, #007bff, #0056b3); /* Градиентный фон для кнопок */
+        border: none;
+        transition: background 0.3s ease;
+    }
+
+    .btn-primary:hover {
+        background: linear-gradient(135deg, #0056b3, #003f8f); /* Темнее синий при наведении */
+    }
+
+    .alert {
+        border-radius: 5px; /* Закругленные углы для предупреждений */
+        background-color: #f8d7da;
+        color: #721c24;
+    }
+
+    .container {
+        margin-top: 50px; /* Отступ сверху для контейнера */
+    }
+
+    body {
+        background-color: #f0f8ff; /* Светлый фон для всей страницы */
+    }
+
+    .form-text {
+        font-size: 0.9em;
+        color: #6c757d;
+    }
+
+    .error-text {
+        color: red;
+        font-size: 0.9em;
+    }
+
+    .success-text {
+        color: green;
+        font-size: 0.9em;
+    }
+
+    /* Модалка и элементы */
+    .modal-content {
+        border-radius: 12px; /* Скругление углов */
+        padding: 20px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        background-color: #ffffff;
+    }
+
+    .modal-header {
+        border-bottom: 1px solid #ddd;
+        padding-bottom: 15px;
+        text-align: center;
+    }
+
+    .modal-title {
+        font-size: 1.5em;
+        color: #0056b3;
+        transition: color 0.3s ease;
+    }
+
+    .modal-title:hover {
+        color: #003f8f;
+    }
+
+    .modal-body {
+        padding: 20px 40px;
+    }
+
+    .modal-footer {
+        border-top: 1px solid #ddd;
+        padding-top: 15px;
+        text-align: center;
+    }
+
+    .modal-footer .btn {
+        font-weight: bold;
+        padding: 12px 20px;
+        width: 45%;
+    }
+
+    .modal-footer .btn-primary {
+        background-color: #007bff;
+        border-color: #007bff;
+        transition: background-color 0.3s ease;
+    }
+
+    .modal-footer .btn-primary:hover {
+        background-color: #0056b3;
+    }
+
+    .modal-footer .btn-secondary {
+        background-color: #aaaaaac8;
+        border-color: #aaaaaac8;
+        transition: background-color 0.3s ease;
+    }
+
+    .modal-footer .btn-secondary:hover {
+        background-color: #ddd;
+    }
+
+    .modal-body input {
+        margin-bottom: 15px;
+        border-radius: 8px;
+        padding: 12px;
+        font-size: 1em;
+        border: 2px solid #007bff;
+    }
+
+    .modal-body input:focus {
+        border-color: #0056b3;
+        outline: none;
+    }
+
+    .btn-close {
+        font-size: 1.2em;
+        color: #007bff;
+        background: none;
+        border: none;
+    }
+
+    .btn-close:hover {
+        color: #0056b3;
+    }
+</style>
+
+<script>
+    function validateForm() {
+        const password = document.getElementById('password').value;
+        const passwordHelp = document.getElementById('passwordHelp');
+        // Обновленное регулярное выражение для проверки пароля (минимум 8 символов и хотя бы одна цифра)
+        const passwordRegex = /^(?=.*\d)[A-Za-z\d]{8,}$/;
+        let errorMessage = '';
+
+        // Проверяем соответствие пароля требованиям
+        if (!password) {
+            errorMessage = "Пароль не может быть пустым.";
+        } else if (password.length < 8) {
+            errorMessage = "Пароль должен содержать минимум 8 символов.";
+        } else if (!/\d/.test(password)) {
+            errorMessage = "Пароль должен содержать хотя бы одну цифру.";
+        }
+
+        if (errorMessage) {
+            passwordHelp.textContent = errorMessage;
+            passwordHelp.classList.remove('success-text');
+            passwordHelp.classList.add('error-text');
+            return false; // Остановить отправку формы
+        } else {
+            passwordHelp.textContent = "Пароль соответствует требованиям.";
+            passwordHelp.classList.remove('error-text');
+            passwordHelp.classList.add('success-text');
+            return true; // Позволить отправить форму
+        }
+    }
+</script>

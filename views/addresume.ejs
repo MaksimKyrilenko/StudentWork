@@ -1,0 +1,160 @@
+<% layout('./layout/page.ejs') %>
+
+<div class="resume-container">
+    <h1>Добавить резюме</h1>
+    
+    <form action="/submitresume" method="POST">
+        <input type="hidden" name="vacancies_id" value="<%= vacancyId %>"> <!-- Скрытое поле для vacancies_id -->
+
+        <div class="form-group">
+            <label for="objective">Цель</label>
+            <textarea id="objective" name="objective" required placeholder="Напишите цель вашего резюме..."></textarea>
+        </div>
+        
+        <div class="form-group">
+            <label for="education">Образование</label>
+            <textarea id="education" name="education" required placeholder="Опишите ваше образование..."></textarea>
+        </div>
+        
+        <div class="form-group">
+            <label for="experience">Опыт работы</label>
+            <textarea id="experience" name="experience" required placeholder="Расскажите о вашем опыте работы..."></textarea>
+        </div>
+        
+        <div class="form-group">
+            <label for="skills">Навыки</label>
+            <textarea id="skills" name="skills" required placeholder="Перечислите ваши ключевые навыки..."></textarea>
+        </div>
+    
+        <button type="submit" class="submit-button">Отправить резюме</button>
+    </form>
+
+    <a href="/vacancies" class="back-button">Назад к списку вакансий</a>
+</div>
+
+<style>
+    body {
+        font-family: 'Roboto', sans-serif;
+        color: #333;
+        margin: 0;
+        padding: 0;
+    }
+
+    .resume-container {
+        background-color: rgba(255, 255, 255, 0.9); /* Полупрозрачный белый фон для контейнера */
+        max-width: 900px;
+        min-width: 600px;
+        margin: 40px auto;
+        padding: 40px 30px;
+        border-radius: 10px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        text-align: center;
+    }
+
+    h1 {
+        font-size: 2.5em;
+        color: #0056b3; /* Темно-синий цвет заголовка */
+        margin-bottom: 30px;
+        font-weight: bold;
+    }
+
+    form {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .form-group {
+        margin-bottom: 25px;
+    }
+
+    label {
+        font-size: 1.2em;
+        font-weight: bold;
+        color: #555;
+        display: block;
+        margin-bottom: 10px;
+    }
+
+    textarea {
+        width: 100%;
+        height: 120px;
+        padding: 15px;
+        font-size: 1.1em;
+        border: 2px solid #ddd;
+        border-radius: 8px;
+        transition: border-color 0.3s ease;
+        background-color: #f9f9f9;
+        box-sizing: border-box;
+    }
+
+    textarea:focus {
+        border-color: #0056b3; /* Темно-синий цвет при фокусе */
+        outline: none;
+    }
+
+    .submit-button {
+        padding: 15px 25px;
+        background-color: #007bff; /* Цвет кнопки */
+        color: white;
+        border: none;
+        border-radius: 8px;
+        font-size: 1.2em;
+        font-weight: bold;
+        cursor: pointer;
+        transition: background-color 0.3s, transform 0.3s;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .submit-button:hover {
+        background-color: #0056b3; /* Темно-синий цвет при наведении */
+        transform: translateY(-2px);
+    }
+
+    .back-button {
+        display: inline-block;
+        margin-top: 20px;
+        color: #007bff; /* Цвет ссылки */
+        font-size: 1.1em;
+        text-decoration: none;
+        transition: color 0.3s ease;
+    }
+
+    .back-button:hover {
+        color: #0056b3; /* Темно-синий цвет при наведении */
+    }
+
+    @media (max-width: 768px) {
+        .resume-container {
+            padding: 20px;
+        }
+
+        h1 {
+            font-size: 2em;
+        }
+
+        .submit-button {
+            font-size: 1em;
+            padding: 12px 20px;
+        }
+
+        textarea {
+            font-size: 1em;
+            height: 100px;
+        }
+    }
+</style>
+
+<script>
+    // Можете добавить динамические элементы, если хотите, например, для подсказок.
+    // Например, добавим подсказки при фокусе на textarea (чтобы подсказывать, что нужно заполнять)
+    const textareas = document.querySelectorAll('textarea');
+
+    textareas.forEach(textarea => {
+        textarea.addEventListener('focus', function() {
+            this.setAttribute('placeholder', 'Заполните это поле...');
+        });
+        textarea.addEventListener('blur', function() {
+            this.setAttribute('placeholder', this.name === 'objective' ? 'Напишите цель вашего резюме...' : this.name === 'education' ? 'Опишите ваше образование...' : this.name === 'experience' ? 'Расскажите о вашем опыте работы...' : 'Перечислите ваши ключевые навыки...');
+        });
+    });
+</script>

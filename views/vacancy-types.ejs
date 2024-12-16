@@ -1,0 +1,123 @@
+<% layout('./layout/page.ejs') %>
+
+<div class="container my-5">
+  <div class="row">
+    <div class="col text-center">
+      <h2 class="section-title">Типы вакансий</h2>
+      <p class="lead mb-4">На платформе StudentWork мы предлагаем разнообразные вакансии, чтобы помочь вам найти работу, идеально подходящую для вас.</p>
+      <hr class="my-4">
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-lg-4 col-md-6 mb-4">
+      <!-- Job Type 1 -->
+      <div class="job-type-card p-4 shadow-sm rounded">
+        <div class="d-flex align-items-center mb-3">
+          <div class="icon-container bg-primary text-white me-3">
+            <i class="bi bi-person-circle fs-4"></i>
+          </div>
+          <h3 class="h5 text-secondary">Стажировки</h3>
+        </div>
+        <p>Стажировки — это уникальная возможность получить практический опыт в вашей области. Они помогут вам познакомиться с корпоративной культурой и развить важные профессиональные навыки. Мы предлагаем множество стажировок как в крупных компаниях, так и в стартапах.</p>
+      </div>
+    </div>
+
+    <div class="col-lg-4 col-md-6 mb-4">
+      <!-- Job Type 2 -->
+      <div class="job-type-card p-4 shadow-sm rounded">
+        <div class="d-flex align-items-center mb-3">
+          <div class="icon-container bg-warning text-white me-3">
+            <i class="bi bi-clock fs-4"></i>
+          </div>
+          <h3 class="h5 text-secondary">Временная Работа</h3>
+        </div>
+        <p>Для студентов, которые ищут гибкое трудоустройство, временная работа — это идеальный вариант. Мы предлагаем вакансии на несколько месяцев, что позволяет совмещать работу с учебой и зарабатывать деньги.</p>
+      </div>
+    </div>
+
+    <div class="col-lg-4 col-md-6 mb-4">
+      <!-- Job Type 3 -->
+      <div class="job-type-card p-4 shadow-sm rounded">
+        <div class="d-flex align-items-center mb-3">
+          <div class="icon-container bg-success text-white me-3">
+            <i class="bi bi-briefcase fs-4"></i>
+          </div>
+          <h3 class="h5 text-secondary">Постоянная Работа</h3>
+        </div>
+        <p>Если вы готовы начать долгосрочную карьеру, мы предлагаем вакансии на постоянную работу. Эти позиции идеально подходят для выпускников, стремящихся развиваться в своей профессиональной области.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+ h2.section-title, h3 {
+        text-align: center;
+        color: #0056b3;
+        font-size: 2.5em;
+        margin-bottom: 25px;
+    }
+  .container {
+    max-width: 1000px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  }
+
+  h2 {
+    color: #007bff;
+    text-transform: uppercase;
+  }
+
+  .lead {
+    color: #555;
+  }
+
+  .job-type-card {
+    background-color: #ffffff;
+    border-radius: 8px;
+    padding: 25px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .job-type-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+  }
+
+  .job-type-card h3 {
+    color: #0056b3;
+    font-weight: bold;
+  }
+
+  .icon-container {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .bi {
+    font-size: 1.5rem;
+  }
+
+  hr {
+    border-top: 2px solid #007bff;
+  }
+
+  /* Адаптивность */
+  @media (max-width: 768px) {
+    .job-type-card {
+      padding: 15px;
+    }
+
+    .bi {
+      font-size: 1.3rem;
+    }
+  }
+</style>

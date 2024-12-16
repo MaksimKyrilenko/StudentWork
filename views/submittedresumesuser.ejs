@@ -1,0 +1,149 @@
+<% layout('./layout/page.ejs') %>
+
+<style>
+    body {
+        background-color: #f4f4f9;
+        margin: 0;
+        padding: 0;
+        font-family: 'Arial', sans-serif;
+    }
+
+    .resume-list {
+        margin: 40px auto;
+        max-width: 950px;
+        padding: 40px;
+        background-color: #fff;
+        border-radius: 12px;
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .resume-list:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 12px 35px rgba(0, 0, 0, 0.2);
+    }
+
+    h2 {
+        font-size: 32px;
+        color: #007bff; /* Primary Blue */
+        text-align: center;
+        margin-bottom: 40px;
+        font-weight: 700;
+        letter-spacing: 1px;
+        transition: color 0.3s ease;
+    }
+
+    h2:hover {
+        color: #2563eb; /* Lighter Blue on hover */
+    }
+
+    .resume-item {
+        background-color: #fff;
+        border: 1px solid #e0e0e0;
+        border-radius: 10px;
+        padding: 25px;
+        margin-bottom: 30px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .resume-item:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+    }
+
+    .resume-item h3 {
+        color: #007bff; /* Primary Blue */
+        font-size: 26px;
+        margin-bottom: 15px;
+        font-weight: 600;
+    }
+
+    .resume-item p {
+        color: #555;
+        font-size: 16px;
+        line-height: 1.8;
+        margin: 10px 0;
+    }
+
+    .resume-item p strong {
+        color: #2563eb; /* Lighter Blue for emphasis */
+        font-weight: bold;
+    }
+
+    .resume-item .view-btn {
+        display: inline-block;
+        padding: 12px 25px;
+        background-color: #007bff; /* Primary Blue */
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+        margin-top: 15px;
+        font-weight: 600;
+        text-align: center;
+        transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+
+    .resume-item .view-btn:hover {
+        background-color: #007bff; /* Lighter Blue on hover */
+        transform: scale(1.05);
+    }
+
+    .no-resumes {
+        text-align: center;
+        font-size: 18px;
+        color: #888;
+        margin-top: 40px;
+    }
+
+    /* Анимация для кнопок и резюме */
+    .view-btn, .resume-item {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    /* Мобильные стили */
+    @media (max-width: 768px) {
+        .resume-list {
+            padding: 25px;
+            max-width: 95%;
+        }
+
+        h2 {
+            font-size: 28px;
+        }
+
+        .resume-item {
+            padding: 20px;
+        }
+
+        .resume-item h3 {
+            font-size: 22px;
+        }
+
+        .resume-item p {
+            font-size: 15px;
+        }
+    }
+</style>
+
+<div class="resume-list">
+    <h2>Мои поданные резюме</h2>
+
+    <% if (resumes.length > 0) { %>
+        <% resumes.forEach(function(resume) { %>
+            <div class="resume-item">
+                <h3><%= resume.objective || 'Не указана цель' %></h3>
+                <strong>Образование</strong>
+                <p> <%= resume.education || 'Не указано' %></p>
+                <strong>Опыт работы</strong>
+                <p> <%= resume.experience || 'Не указано' %></p>
+                <strong>Навыки</strong> 
+                <p> <%= resume.skills || 'Не указаны' %></p>
+            </div>
+        <% }); %>
+    <% } else { %>
+        <div class="no-resumes">
+            <p>У вас нет поданных резюме.</p>
+        </div>
+    <% } %>
+</div>

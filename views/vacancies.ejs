@@ -1,0 +1,410 @@
+<% layout('./layout/page.ejs') %>
+
+<div class="vacancies-container">
+    <h2 class="section-title">Список вакансий</h2>
+
+    <!-- Navigation Links -->
+    <div class="navigation1">
+        <a href="#featured-vacancies" class="nav-link1">Рекомендуемые вакансии</a>
+        <a href="#statistics" class="nav-link1">Статистика вакансий</a>
+        <a href="#job-tips" class="nav-link1">Советы по поиску работы</a>
+        <a href="#employee-reviews" class="nav-link1">Отзывы сотрудников</a>
+        <a href="#faq" class="nav-link1">Часто задаваемые вопросы</a>
+    </div>
+
+    <!-- Форма поиска -->
+    <div class="search-container">
+        <input type="text" id="searchInput" placeholder="Поиск вакансий..." class="search-input" />
+        <button id="searchButton" class="search-button">🔍 Поиск</button>
+        <div id="suggestions" class="suggestions-container"></div> <!-- Контейнер для подсказок -->
+    </div>
+
+    <div class="vacancies" id="vacanciesList">
+        <% if (vacancies && vacancies.length > 0) { %>
+            <% vacancies.forEach(function(vacancy) { %>
+                <div class="vacancy-card" data-title="<%= vacancy.title.toLowerCase() %>">
+                    <div class="vacancy-card-header">
+                        <h3><%= vacancy.title %></h3>
+                        <p class="company"><%= vacancy.company %></p>
+                    </div>
+                    <div class="vacancy-card-body">
+                        <strong>Описание</strong>
+                        <p><%= vacancy.description %></p>
+                        <strong>Местоположение</strong>
+                        <p><%= vacancy.location %></p>
+                        <strong>Зарплата</strong>
+                        <p><%= vacancy.salary %></p>
+                    </div>
+                    <button class="details-button" onclick="window.location.href='/jobdetail?id=<%= vacancy.id %>'">Подробнее</button>
+                </div>
+            <% }); %>
+        <% } else { %>
+            <div class="no-vacancies">
+                <p>Нет доступных вакансий</p>
+            </div>
+        <% } %>
+    </div>
+
+    <!-- New Blocks with Interesting Information -->
+    <div id="job-tips" class="info-block">
+        <h3>Советы по поиску работы</h3>
+        <p>Не забывайте обновлять резюме и сопроводительное письмо. Изучайте компанию перед собеседованием и будьте уверены в своих навыках.</p>
+    </div>
+
+    <div id="employee-reviews" class="info-block">
+        <h3>Отзывы сотрудников</h3>
+        <p>Наши сотрудники делятся своими впечатлениями о рабочей атмосфере: "Отличная команда и возможности для карьерного роста!"</p>
+    </div>
+
+    <div id="faq" class="info-block">
+        <h3>Часто задаваемые вопросы</h3>
+        <ul>
+            <li><strong>Как подать заявку на вакансию?</strong> Просто нажмите на кнопку "Подробнее" и заполните форму на странице вакансии.</li>
+            <li><strong>Какие документы нужно прикрепить?</strong> Вам нужно прикрепить резюме и, если есть, сопроводительное письмо.</li>
+        </ul>
+    </div>
+</div>
+
+<style>
+        body {
+        background-color: #f7f9fc; /* Легкий фон для страницы */
+        color: #333; /* Темный текст для читаемости */
+        margin: 0;
+        font-family: 'Roboto', sans-serif;
+    }
+
+    .vacancies-container {
+        max-width: 1200px;
+        margin: 60px auto 40px;
+        padding: 40px;
+        background-color: #ffffff; /* Белый фон для контейнера */
+        border-radius: 12px;
+        box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+        animation: fadeIn 1s ease-in-out;
+    }
+
+    h2.section-title, h3 {
+        text-align: center;
+        color: #0056b3; /* Темно-синий цвет заголовков */
+        font-size: 2.5em;
+        margin-bottom: 25px;
+    }
+
+    .navigation1 {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 20px;
+        background-color: #f7f9fc; /* Легкий фон для навигации */
+        padding: 10px 0;
+        border-radius: 30px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .nav-link1 {
+        margin: 0 20px;
+        text-decoration: none;
+        color: #0056b3; /* Темно-синий цвет ссылок */
+        font-weight: bold;
+        font-size: 1.2em;
+        padding: 8px 16px;
+        border-radius: 12px;
+        transition: all 0.3s ease;
+    }
+
+    .nav-link1:hover {
+        color: #fff;
+        background-color: #0056b3; /* Темно-синий фон при наведении */
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        transform: translateY(-3px);
+    }
+
+    .nav-link1:focus {
+        outline: none;
+        border: 2px solid #0056b3;
+        box-shadow: 0 0 8px rgba(0, 86, 179, 0.5);
+    }
+
+    .nav-link1:active {
+        background-color: #003d7a; /* Темно-синий при активном состоянии */
+        transform: translateY(0);
+    }
+
+    .search-container {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 30px;
+        position: relative;
+    }
+
+    .search-input {
+        padding: 12px 20px;
+        border: 2px solid #0056b3; /* Темно-синий цвет рамки */
+        border-radius: 30px;
+        width: 70%;
+        margin-right: 15px;
+        font-size: 1em;
+        transition: border-color 0.3s ease, transform 0.2s ease;
+    }
+
+    .search-input:focus {
+        border-color: #003d7a; /* Темно-синий при фокусе */
+        outline: none;
+        transform: scale(1.03);
+    }
+
+    .search-button {
+        padding: 12px 20px;
+        background-color: #007bff; /* Синий цвет кнопки */
+        color: #ffffff;
+        border: none;
+        border-radius: 30px;
+        cursor: pointer;
+        transition: background-color 0.3s ease, transform 0.2s ease;
+        font-weight: bold;
+        font-size: 1.1em;
+    }
+
+    .search-button:hover {
+        background-color: #0056b3; /* Темно-синий при наведении */
+        transform: scale(1.05);
+    }
+
+    .suggestions-container {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background-color: white;
+        border: 2px solid #ddd;
+        border-radius: 10px;
+        max-height: 200px;
+        overflow-y: auto;
+        display: none;
+        z-index: 1000;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        animation: fadeIn 0.3s ease;
+    }
+
+    .vacancies {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+        justify-content: center;
+        margin-top: 30px;
+    }
+
+    .vacancy-card {
+        background-color: #ffffff;
+        border: 1px solid #ddd;
+        border-radius: 12px;
+        padding: 20px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        width: 300px;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        overflow: hidden;
+        position: relative;
+        animation: fadeIn 0.5s ease-out;
+    }
+
+    .vacancy-card-header {
+        margin-bottom: 15px;
+    }
+
+    .vacancy-card-header h3 {
+        font-size: 1.6em;
+        margin-bottom: 10px;
+    }
+
+    .vacancy-card-header .company {
+        font-size: 1.2em;
+        color: #555;
+    }
+
+    .vacancy-card-body {
+        margin-bottom: 20px;
+    }
+
+    .vacancy-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    .details-button {
+        padding: 10px 15px;
+        background-color: #28a745; /* Зеленый цвет кнопки */
+        color: white;
+        text-decoration: none;
+        border-radius: 30px;
+        text-align: center;
+        transition: background-color 0.3s ease, transform 0.2s ease;
+        font-weight: bold;
+    }
+
+    .details-button:hover {
+        background-color: #218838; /* Темно-зеленый при наведении */
+        transform: scale(1.05);
+    }
+
+    .no-vacancies {
+        text-align: center;
+        color: #777;
+        font-size: 1.2em;
+    }
+
+    .info-block {
+        margin-top: 40px;
+        background-color: #f1f8ff; /* Светло-синий фон для блоков информации */
+        padding: 20px;
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        text-align: center;
+    }
+
+    .info-block h3 {
+        margin-bottom: 15px;
+        color: #0056b3; /* Темно-синий цвет заголовков в блоках информации */
+    }
+
+    .info-block p {
+        color: #555; /* Темный текст для читаемости */
+        font-size: 1.1em;
+    }
+
+    .info-block ul {
+        list-style-type: none;
+        padding: 0;
+        font-size: 1.1em;
+        color: #555;
+    }
+
+    .info-block ul li {
+        margin: 10px 0;
+    }
+
+    /* Media Queries for responsiveness */
+    @media (max-width: 768px) {
+        .vacancies-container {
+            padding: 20px;
+            margin: 20px;
+        }
+
+        .search-container {
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .search-input {
+            width: 100%;
+            margin-right: 0;
+            margin-bottom: 10px;
+        }
+
+        .vacancy-card {
+            width: 100%;
+        }
+
+        h2.section-title {
+            font-size: 2em;
+        }
+
+        .nav-link1 {
+            font-size: 1em;
+            margin: 0 10px;
+        }
+
+        .details-button {
+            font-size: 1em;
+        }
+
+        .info-block {
+            padding: 15px;
+        }
+
+        .info-block h3 {
+            font-size: 1.5em;
+        }
+    }
+
+    @keyframes fadeIn {
+        0% { opacity: 0; transform: translateY(-10px); }
+        100% { opacity: 1; transform: translateY(0); }
+    }
+
+    .vacancy-card-footer {
+        margin-top: 10px;
+        font-size: 1.2em;
+    }
+
+    .vacancy-card-footer a {
+        text-decoration: none;
+        color: #0056b3; /* Темно-синий цвет для ссылок в футере */
+        font-weight: bold;
+    }
+
+    .vacancy-card-footer a:hover {
+        text-decoration: underline;
+    }
+
+</style>
+
+<script>
+    const vacanciesList = JSON.parse('<%- JSON.stringify(vacancies) %>');
+
+    document.getElementById('searchInput').addEventListener('input', function() {
+        const searchInput = this.value.toLowerCase();
+        const suggestionsContainer = document.getElementById('suggestions');
+        suggestionsContainer.innerHTML = '';
+
+        if (searchInput) {
+            const filteredVacancies = vacanciesList.filter(vacancy => 
+                vacancy.title.toLowerCase().includes(searchInput)
+            );
+
+            if (filteredVacancies.length > 0) {
+                suggestionsContainer.style.display = 'block';
+                filteredVacancies.forEach(vacancy => {
+                    const suggestionItem = document.createElement('div');
+                    suggestionItem.className = 'suggestion-item';
+                    suggestionItem.textContent = vacancy.title;
+                    suggestionItem.onclick = function() {
+                        document.getElementById('searchInput').value = vacancy.title;
+                        suggestionsContainer.innerHTML = '';
+                        suggestionsContainer.style.display = 'none';
+                        showVacancy(vacancy.title.toLowerCase());
+                    };
+                    suggestionsContainer.appendChild(suggestionItem);
+                });
+            } else {
+                suggestionsContainer.style.display = 'none';
+            }
+        } else {
+            suggestionsContainer.style.display = 'none';
+        }
+    });
+
+    document.getElementById('searchButton').addEventListener('click', function() {
+        const searchInput = document.getElementById('searchInput').value.toLowerCase();
+        const vacancyCards = document.querySelectorAll('.vacancy-card');
+        let found = false;
+
+        vacancyCards.forEach(function(vacancy) {
+            const title = vacancy.getAttribute('data-title');
+            if (title.includes(searchInput)) {
+                vacancy.style.display = 'block';
+                found = true;
+            } else {
+                vacancy.style.display = 'none';
+            }
+        });
+
+        const noVacanciesMessage = document.querySelector('.no-vacancies');
+        if (!found) {
+            noVacanciesMessage.innerHTML = '<p>Нет доступных вакансий</p>';
+            noVacanciesMessage.style.display = 'block';
+        } else {
+            noVacanciesMessage.style.display = 'none';
+        }
+
+        document.getElementById('suggestions').style.display = 'none';
+    });
+</script>

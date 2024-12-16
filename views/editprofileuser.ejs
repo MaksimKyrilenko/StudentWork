@@ -1,0 +1,140 @@
+<% layout('./layout/page.ejs') %>
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 20px;
+    }
+
+    h2 {
+        text-align: center;
+        color: #333;
+        margin-bottom: 20px; /* Добавлено расстояние под заголовком */
+    }
+
+    .form-container {
+        max-width: 600px;
+        margin: 20px auto; /* Центрирование контейнера */
+        background: #ffffff;
+        padding: 30px; /* Увеличен внутренний отступ */
+        border-radius: 8px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Увеличена тень для глубины */
+        transition: box-shadow 0.3s; /* Плавный эффект тени */
+    }
+
+    .form-container:hover {
+        box-shadow: 0 6px 30px rgba(0, 0, 0, 0.15); /* Эффект при наведении */
+    }
+
+    .form-group {
+        margin-bottom: 20px; /* Увеличены отступы между группами */
+    }
+
+    label {
+        display: block;
+        margin-bottom: 8px; /* Увеличены отступы под метками */
+        font-weight: bold;
+        color: #555; /* Более мягкий цвет для меток */
+    }
+
+    input[type="text"],
+    input[type="email"],
+    textarea {
+        width: 100%;
+        padding: 12px; /* Увеличен внутренний отступ */
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+        font-size: 16px; /* Размер шрифта для ввода */
+        transition: border-color 0.3s; /* Плавный эффект при фокусе */
+    }
+
+    input:focus,
+    textarea:focus {
+        border-color: #007bff; /* Цвет рамки при фокусе */
+        outline: none; /* Убираем стандартное обводка */
+    }
+
+    textarea {
+        resize: vertical; /* Возможность изменения размера по вертикали */
+        min-height: 100px; /* Минимальная высота текстового поля */
+    }
+
+    .error {
+        color: red;
+        font-size: 14px;
+        margin-top: 10px;
+        text-align: center; /* Центрирование сообщений об ошибках */
+    }
+
+    button {
+        width: 100%;
+        padding: 12px;
+        background-color: #5cb85c;
+        border: none;
+        border-radius: 4px;
+        color: white;
+        font-size: 18px; /* Увеличен размер шрифта кнопки */
+        cursor: pointer;
+        transition: background-color 0.3s, transform 0.3s; /* Плавный эффект при наведении */
+    }
+
+    button:hover {
+        background-color: #4cae4c; /* Темный цвет кнопки при наведении */
+        transform: translateY(-2px); /* Подъем кнопки при наведении */
+    }
+
+    @media (max-width: 768px) {
+        .form-container {
+            padding: 20px; /* Уменьшение отступов на мобильных */
+        }
+
+        h2 {
+            font-size: 24px; /* Уменьшение размера заголовка на мобильных */
+        }
+
+        button {
+            font-size: 16px; /* Уменьшение размера текста кнопки на мобильных */
+        }
+    }
+</style>
+
+<div class="form-container">
+    <h2>Редактировать профиль студента</h2>
+    <form action="/update-user-profile" method="POST">
+        <input type="hidden" name="id" value="<%= userprofile.id %>">
+
+        <div class="form-group">
+            <label>Имя</label>
+            <input type="text" name="name" value="<%= userprofile.name || '' %>" required>
+        </div>
+
+        <div class="form-group">
+            <label>Email</label>
+            <input type="email" name="email" value="<%= userprofile.email || '' %>" required>
+        </div>
+
+        <div class="form-group">
+            <label>Университет</label>
+            <input type="text" name="university" value="<%= userprofile.university || '' %>" required>
+        </div>
+
+        <div class="form-group">
+            <label>Навыки (через запятую)</label>
+            <input type="text" name="skills" value="<%= userprofile.skills || '' %>">
+        </div>
+
+        <div class="form-group">
+            <label>О себе</label>
+            <textarea name="experience"><%= userprofile.experience || '' %></textarea>
+        </div>
+
+        <% if (error) { %>
+            <p class="error"><%= error %></p>
+        <% } %>
+
+        <button type="submit">Сохранить изменения</button>
+    </form>
+</div>

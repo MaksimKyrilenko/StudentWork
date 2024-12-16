@@ -1,0 +1,208 @@
+<% layout('./layout/page.ejs') %>
+
+<div class="container my-5">
+  <div class="row">
+    <div class="col text-center">
+      <h2 class="section-title">Полезные ресурсы для студентов</h2>
+      <p class="lead mb-4">На платформе StudentWork мы собрали лучшие ресурсы, которые помогут вам построить успешную карьеру.</p>
+      <hr class="my-4">
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <h2 class="h5 text-secondary mb-3">Рекомендованные материалы:</h2>
+      <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3">
+        <!-- Карточка 1 -->
+        <div class="col mb-4">
+          <div class="card shadow-sm border-light rounded d-flex flex-column" id="card1">
+            <div class="card-body">
+              <h5 class="card-title text-primary">Как составить резюме</h5>
+              <p class="card-text">Полезные советы по составлению резюме, чтобы вы могли выделиться среди конкурентов.</p>
+              <a href="https://www.hh.ru/article/30642" class="btn btn-primary" target="_blank">Читать статью</a>
+            </div>
+          </div>
+        </div>
+        <!-- Карточка 2 -->
+        <div class="col mb-4">
+          <div class="card shadow-sm border-light rounded d-flex flex-column" id="card2">
+            <div class="card-body">
+              <h5 class="card-title text-primary">Как подготовиться к собеседованию</h5>
+              <p class="card-text">Руководство по подготовке к собеседованию, чтобы показать себя с лучшей стороны.</p>
+              <a href="https://www.rabota.ru/specials/interview-tips/" class="btn btn-primary" target="_blank">Читать советы</a>
+            </div>
+          </div>
+        </div>
+        <!-- Карточка 3 -->
+        <div class="col mb-4">
+          <div class="card shadow-sm border-light rounded d-flex flex-column" id="card3">
+            <div class="card-body">
+              <h5 class="card-title text-primary">Лучшие онлайн-курсы для студентов</h5>
+              <p class="card-text">Ознакомьтесь с самыми полезными онлайн-курсами для студентов, которые помогут вам улучшить навыки.</p>
+              <a href="https://www.coursera.org/" class="btn btn-primary" target="_blank">Исследовать курсы</a>
+            </div>
+          </div>
+        </div>
+        <!-- Карточка 4 -->
+        <div class="col mb-4">
+          <div class="card shadow-sm border-light rounded d-flex flex-column" id="card4">
+            <div class="card-body">
+              <h5 class="card-title text-primary">Как эффективно искать работу</h5>
+              <p class="card-text">Советы по поиску работы: как эффективно искать вакансии и не потерять время.</p>
+              <a href="https://www.superjob.ru/articles/poisk-rabotyi-sovetyi.html" class="btn btn-primary" target="_blank">Узнать стратегии</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <p class="mt-4">Эти ресурсы помогут вам ускорить поиск работы и повысить вашу конкурентоспособность на рынке труда.</p>
+    </div>
+  </div>
+</div>
+
+<!-- Вставляем скрипты -->
+<script>
+  // 1. Плавный скроллинг для якорных ссылок (если у вас есть якоря на странице)
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+      e.preventDefault();
+
+      const targetElement = document.querySelector(this.getAttribute('href'));
+      if (targetElement) {
+        targetElement.scrollIntoView({
+          behavior: 'smooth'
+        });
+      }
+    });
+  });
+
+  // 2. Анимация появления карточек (fade-in) с IntersectionObserver
+  const cards = document.querySelectorAll('.card');
+  const fadeInObserver = new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('fade-in');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, {
+    threshold: 0.2
+  });
+
+  cards.forEach(card => {
+    fadeInObserver.observe(card);
+  });
+
+  // 3. Подсветка карточек при наведении
+  document.querySelectorAll('.card').forEach(card => {
+    card.addEventListener('mouseover', () => {
+      card.classList.add('highlight');
+    });
+    card.addEventListener('mouseout', () => {
+      card.classList.remove('highlight');
+    });
+  });
+</script>
+
+<style>
+    h2.section-title, h3 {
+        text-align: center;
+        color: #0056b3;
+        font-size: 2.5em;
+        margin-bottom: 25px;
+    }
+  /* 1. Анимация fade-in */
+  .card {
+    opacity: 0;
+    transition: opacity 0.6s ease-in-out;
+  }
+
+  .card.fade-in {
+    opacity: 1;
+  }
+
+  /* 2. Подсветка карточки */
+  .card.highlight {
+    box-shadow: 0 8px 25px rgba(0, 123, 255, 0.3);
+  }
+
+  .container {
+    max-width: 900px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  }
+
+  h1 {
+    color: #007bff;
+    text-transform: uppercase;
+  }
+
+  .lead {
+    color: #555;
+  }
+
+  /* Карточки */
+  .card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    height: 100%; /* Карточки будут растягиваться по высоте */
+    min-height: 300px; /* Устанавливаем минимальную высоту для карточек */
+  }
+
+  .card-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Располагаем элементы карточки на максимальном расстоянии */
+    flex-grow: 1; /* Карточка будет растягиваться */
+  }
+
+  .card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+  }
+
+  .card-title {
+    font-size: 1.1rem;
+    font-weight: bold;
+  }
+
+  .card-text {
+    font-size: 0.9rem;
+    color: #555;
+  }
+
+  .btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+    padding: 10px 20px;
+    font-size: 0.9rem;
+    margin-top: auto; /* Выровняем кнопку по низу */
+    align-self: center; /* Центрируем кнопку */
+  }
+
+  .btn-primary:hover {
+    background-color: #0056b3;
+    border-color: #0056b3;
+  }
+
+  hr {
+    border-top: 2px solid #007bff;
+  }
+
+  /* Адаптивность */
+  @media (max-width: 768px) {
+    .card-title {
+      font-size: 1rem;
+    }
+
+    .card-text {
+      font-size: 0.85rem;
+    }
+
+    .btn-primary {
+      padding: 8px 15px;
+    }
+  }
+</style>

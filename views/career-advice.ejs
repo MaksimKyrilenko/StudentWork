@@ -1,0 +1,158 @@
+<% layout('./layout/page.ejs') %>
+
+<div class="container my-5">
+  <div class="row">
+    <div class="col text-center">
+      <h2 class="section-title">Советы по трудоустройству</h2>
+      <p class="lead mb-4">Полезные рекомендации для успешного поиска работы и подготовки к собеседованию.</p>
+      <hr class="my-4">
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <!-- Advice Item 1 -->
+      <div class="advice-item mb-4 shadow-lg p-4 rounded">
+        <div class="d-flex align-items-center">
+            <div class="icon-container bg-primary text-white me-3 p-3 rounded-circle">
+                <i class="bi bi-briefcase fs-4"></i>
+              </div>              
+          <div>
+            <h3 class="h5 text-dark">1. Подготовка к Собеседованию</h3>
+            <p>Изучите компанию, ее культуру. Практикуйте ответы на вопросы и подготовьте вопросы для интервьюера, чтобы продемонстрировать интерес и мотивацию.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Advice Item 2 -->
+      <div class="advice-item mb-4 shadow-lg p-4 rounded">
+        <div class="d-flex align-items-center">
+            <div class="icon-container bg-primary text-white me-3 p-3 rounded-circle">
+                <i class="bi bi-briefcase fs-4"></i>
+              </div>              
+          <div>
+            <h3 class="h5 text-dark">2. Востребованные Навыки</h3>
+            <p>Следите за трендами на рынке труда. Навыки в области цифровых технологий, аналитики и межличностного общения востребованы больше всего.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Advice Item 3 -->
+      <div class="advice-item mb-4 shadow-lg p-4 rounded">
+        <div class="d-flex align-items-center">
+            <div class="icon-container bg-primary text-white me-3 p-3 rounded-circle">
+                <i class="bi bi-briefcase fs-4"></i>
+              </div>              
+          <div>
+            <h3 class="h5 text-dark">3. Создание Резюме</h3>
+            <p>Сосредоточьтесь на ваших достижениях и результатах. Используйте активные глаголы и четкую структуру для выделения своих сильных сторон.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Advice Item 4 -->
+      <div class="advice-item mb-4 shadow-lg p-4 rounded">
+        <div class="d-flex align-items-center">
+            <div class="icon-container bg-primary text-white me-3 p-3 rounded-circle">
+                <i class="bi bi-briefcase fs-4"></i>
+              </div>              
+          <div>
+            <h3 class="h5 text-dark">4. Взаимодействие с Работодателями</h3>
+            <p>Не стесняйтесь устанавливать контакты! Используйте платформы как LinkedIn и участвуйте в сетевых мероприятиях для расширения круга общения.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  h2.section-title, h3 {
+      text-align: center;
+      color: #0056b3; /* Темно-синий цвет */
+      font-size: 2.5em;
+      margin-bottom: 25px;
+  }
+  
+  .container {
+    max-width: 950px;
+    background-color: #f4f6f9;
+    border-radius: 12px;
+    padding: 30px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+  }
+
+  h1 {
+    color: #0056b3; /* Темно-синий цвет */
+    text-transform: uppercase;
+  }
+
+  .lead {
+    color: #555;
+  }
+
+  .advice-item {
+    background-color: #ffffff;
+    border-radius: 8px;
+    padding: 25px;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .advice-item:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  }
+
+  .advice-item .icon-container {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .advice-item h3 {
+    color: #2c3e50; /* Темно-серый цвет */
+    font-weight: bold;
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+  }
+
+  .advice-item p {
+    color: #7f8c8d; /* Серый цвет текста */
+  }
+
+  hr {
+    border-top: 2px solid #0056b3; /* Темно-синий цвет для разделителя */
+    margin-top: 30px;
+    margin-bottom: 30px;
+  }
+
+  /* Иконки из Bootstrap Icons */
+  .bi {
+    font-size: 2rem;
+  }
+
+  /* Адаптивность */
+  @media (max-width: 768px) {
+    .advice-item {
+      flex-direction: column;
+      align-items: flex-start;
+      padding: 20px;
+    }
+
+    .advice-item .icon-container {
+      margin-bottom: 10px;
+    }
+
+    .bi {
+      font-size: 1.5rem;
+    }
+
+    .container {
+      padding: 20px;
+    }
+  }
+</style>

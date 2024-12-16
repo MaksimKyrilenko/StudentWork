@@ -1,0 +1,77 @@
+<% layout('./layout/page.ejs') %>
+
+<div class="container my-5">
+  <div class="row">
+    <div class="col text-center">
+      <h2 class="section-title">Часто задаваемые вопросы</h2>
+      <p class="lead mb-4">Мы собрали ответы на наиболее популярные вопросы студентов о поиске работы и стажировок.</p>
+      <hr class="my-4">
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <div class="faq-item mb-4">
+        <h3 class="h5 text-secondary">1. Как создать аккаунт на StudentWork?</h3>
+        <p>Чтобы создать аккаунт, перейдите на страницу регистрации, заполните все необходимые поля и подтвердите свой email. Это займет всего несколько минут!</p>
+      </div>
+      <div class="faq-item mb-4">
+        <h3 class="h5 text-secondary">2. Как подать заявку на вакансию?</h3>
+        <p>Выберите интересующую вас вакансию, нажмите кнопку "Подать заявку" и следуйте инструкциям на экране. Убедитесь, что ваше резюме актуально!</p>
+      </div>
+      <div class="faq-item mb-4">
+        <h3 class="h5 text-secondary">3. Могу ли я подать заявку на несколько вакансий одновременно?</h3>
+        <p>Да, вы можете подавать заявки на несколько вакансий! Однако рекомендуем сосредоточиться на тех, которые лучше всего соответствуют вашим навыкам и интересам.</p>
+      </div>
+      <div class="faq-item mb-4">
+        <h3 class="h5 text-secondary">4. Как изменить свои данные в профиле?</h3>
+        <p>Перейдите в раздел "Профиль" на платформе, где вы сможете обновить свою информацию, включая контактные данные и резюме.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+h2.section-title, h3 {
+        text-align: center;
+        color: #0056b3;
+        font-size: 2.5em;
+        margin-bottom: 25px;
+    }
+  .container {
+    max-width: 900px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  }
+
+  h1 {
+    color: #007bff;
+    text-transform: uppercase;
+  }
+
+  .lead {
+    color: #555;
+  }
+
+  .faq-item {
+    background-color: #ffffff;
+    border-radius: 5px;
+    padding: 15px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s;
+  }
+
+  .faq-item:hover {
+    transform: translateY(-5px);
+  }
+
+  h3 {
+    color: #0056b3;
+  }
+
+  hr {
+    border-top: 2px solid #007bff;
+  }
+</style>

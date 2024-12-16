@@ -1,0 +1,204 @@
+<% layout('./layout/page.ejs') %>
+
+<div class="landing-page-container">
+    <!-- Блок призыва к действию -->
+    <section class="call-to-action">
+        <h1>Присоединяйтесь к <span>StudentWork</span>!</h1>
+        <p>Начните свою карьеру уже сегодня. Зарегистрируйтесь и найдите свою идеальную вакансию!</p>
+        <a href="/registration" class="cta-button">Зарегистрироваться</a>
+    </section>
+
+    <!-- О проекте -->
+    <section class="project-info-container">
+        <h2>О проекте StudentWork</h2>
+        <div class="project-description">
+            <p><strong>StudentWork</strong> — это инновационная платформа, созданная для упрощения поиска вакансий для студентов. Мы объединяем работодателей и студентов, предлагая широкий выбор стажировок, временных и постоянных работ.</p>
+            <p>Наша цель — помочь молодым специалистам начать карьеру, предоставляя доступ к актуальным предложениям, полезным ресурсам и советам по трудоустройству.</p>
+        </div>
+    </section>
+
+    <!-- Статистика -->
+    <section class="statistics-container">
+        <h2>Статистика</h2>
+        <div class="statistics">
+            <div class="statistic">
+                <h3><%= employerCount %></h3>
+                <p>Работодателей</p>
+            </div>
+            <div class="statistic">
+                <h3><%= studentCount %></h3>
+                <p>Зарегистрированных студентов</p>
+            </div>
+            <div class="statistic">
+                <h3><%= vacancyCount %></h3>
+                <p>Доступные вакансии</p>
+            </div>
+        </div>
+    </section>
+</div>
+
+<style>
+    /* Общие стили */
+    body {
+        background-color: #f4f7fa;
+        margin: 0;
+        padding: 0;
+        font-family: 'Roboto', sans-serif;
+        color: #333;
+    }
+
+    .landing-page-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+
+    /* Секция призыва к действию */
+    .call-to-action {
+        text-align: center;
+        padding: 100px 20px;
+        background: linear-gradient(135deg, #1e4d8f 0%, #007bff 100%); /* Обновленный синий градиент */
+        color: white;
+        border-radius: 15px;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        animation: fadeInUp 1s ease-out;
+    }
+
+    .call-to-action h1 {
+        font-size: 3em;
+        margin-bottom: 20px;
+        font-weight: bold;
+    }
+
+    .call-to-action h1 span {
+        color: #28a745; /* Зеленый акцент */
+    }
+
+    .call-to-action p {
+        font-size: 1.4em;
+        margin-bottom: 30px;
+    }
+
+    .cta-button {
+        display: inline-block;
+        padding: 15px 30px;
+        background: linear-gradient(135deg, #28a745, #218838);
+        color: white;
+        text-decoration: none;
+        border-radius: 50px;
+        font-weight: bold;
+        font-size: 1.2em;
+        transition: background 0.3s ease, transform 0.3s ease;
+        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .cta-button:hover {
+        background: linear-gradient(135deg, #218838, #1e7e34);
+        transform: translateY(-5px);
+    }
+
+    /* Секция "О проекте" */
+    .project-info-container {
+        padding: 60px 20px;
+        background-color: #ffffff;
+        border-radius: 15px;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        margin-top: 50px;
+        animation: fadeInUp 1s ease-out 0.5s;
+    }
+
+    .project-info-container h2 {
+        font-size: 2.5em;
+        color: #333;
+        text-align: center;
+        margin-bottom: 40px;
+    }
+
+    .project-description p {
+        font-size: 1.2em;
+        line-height: 1.8;
+        color: #555;
+        margin-bottom: 20px;
+    }
+
+    /* Секция статистики */
+    .statistics-container {
+        text-align: center;
+        padding: 60px 20px;
+        background-color: #f9f9f9;
+        border-radius: 15px;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        margin-top: 50px;
+        animation: fadeInUp 1s ease-out 0.75s;
+    }
+
+    .statistics-container h2 {
+        font-size: 2.5em;
+        color: #333;
+        margin-bottom: 40px;
+    }
+
+    .statistics {
+        display: flex;
+        justify-content: space-around;
+        flex-wrap: wrap;
+        gap: 20px;
+    }
+
+    .statistic {
+        padding: 40px;
+        background-color: #ffffff;
+        border-radius: 15px;
+        width: 250px;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .statistic:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 12px 25px rgba(0, 0, 0, 0.2);
+    }
+
+    .statistic h3 {
+        font-size: 2.5em;
+        color: #007bff;
+        margin-bottom: 10px;
+    }
+
+    .statistic p {
+        font-size: 1.2em;
+        color: #555;
+    }
+
+    /* Анимации */
+    @keyframes fadeInUp {
+        0% {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        100% {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    /* Адаптивность */
+    @media (max-width: 768px) {
+        .call-to-action h1 {
+            font-size: 2.2em;
+        }
+
+        .call-to-action p {
+            font-size: 1.2em;
+        }
+
+        .statistics {
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .statistic {
+            width: 100%;
+        }
+    }
+</style>

@@ -1,0 +1,178 @@
+<% layout('./layout/page.ejs') %>
+<div class="container">
+    <div class="card shadow-lg p-4 form-container">
+        <h1 class="display-5 text-center mb-4">Регистрация и вход</h1> <!-- Размер заголовка уменьшен -->
+        <form action="/logreg" method="post">
+            <div class="mb-3">
+                <label class="form-label">Email</label>
+                <input class="form-control" type="email" placeholder="Введите email" name="email" required/>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Пароль</label>
+                <input class="form-control" type="password" placeholder="Введите пароль" name="password" required/>
+            </div>
+            <div class="text-center">
+                <a href="/registration" class="btn btn-primary btn-lg me-2">Регистрация</a>
+                <input class="btn btn-primary btn-lg" type="submit" value="Войти"/>
+            </div>
+            <% if(error) { %>
+                <div class="alert alert-danger mt-3"><%= error %></div>
+            <% } %>
+            <div class="text-center mt-3">
+                <button type="button" class="btn btn-link" data-bs-toggle="modal" data-bs-target="#resetPasswordModal">Забыли пароль?</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Модалка для сброса пароля -->
+<div class="modal fade" id="resetPasswordModal" tabindex="-1" aria-labelledby="resetPasswordLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="resetPasswordLabel">Сброс пароля</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="resetPasswordForm" action="/reset-password" method="post">
+                    <div class="mb-3">
+                        <label class="form-label">Email</label>
+                        <input class="form-control" type="email" placeholder="Введите ваш email" name="resetEmail" required/>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Новый пароль</label>
+                        <input class="form-control" type="password" placeholder="Введите новый пароль" name="newPassword" required/>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+                <input class="btn btn-primary" type="submit" form="resetPasswordForm" value="Сменить пароль"/>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .form-container {
+        max-width: 500px;
+        margin: 0 auto;
+        border: 1px solid #1e4d8f; /* Более глубокий синий цвет */
+        padding: 30px;
+        border-radius: 15px;
+        background-color: #ffffff;
+    }
+
+    .form-label {
+        font-weight: bold;
+    }
+
+    .btn-primary {
+        width: 48%;
+        background: linear-gradient(135deg, #007bff, #0056b3); /* Градиентный фон для кнопок */
+        border: none;
+        transition: background 0.3s ease;
+    }
+
+    .btn-primary:hover {
+        background: linear-gradient(135deg, #0056b3, #003f8f); /* Темнее синий при наведении */
+    }
+
+    .alert {
+        border-radius: 5px;
+        background-color: #f8d7da;
+        color: #721c24;
+    }
+
+    .container {
+        margin-top: 50px;
+    }
+
+    body {
+        background-color: #f0f8ff; /* Легкий синий фон для всей страницы */
+    }
+
+    /* Модалка */
+    .modal-content {
+        border-radius: 12px; /* Скругление углов */
+        padding: 20px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        background-color: #ffffff;
+    }
+
+    .modal-header {
+        border-bottom: 1px solid #ddd;
+        padding-bottom: 15px;
+        text-align: center;
+    }
+
+    .modal-title {
+        font-size: 1.5em;
+        color: #0056b3; /* Темно-синий цвет для заголовка */
+        transition: color 0.3s ease;
+    }
+
+    .modal-title:hover {
+        color: #003f8f; /* Более темный синий при наведении */
+    }
+
+    .modal-body {
+        padding: 20px 40px;
+    }
+
+    .modal-footer {
+        border-top: 1px solid #ddd;
+        padding-top: 15px;
+        text-align: center;
+    }
+
+    .modal-footer .btn {
+        font-weight: bold;
+        padding: 12px 20px;
+        width: 45%;
+    }
+
+    .modal-footer .btn-primary {
+        background-color: #007bff;
+        border-color: #007bff;
+        transition: background-color 0.3s ease;
+    }
+
+    .modal-footer .btn-primary:hover {
+        background-color: #0056b3;
+    }
+
+    .modal-footer .btn-secondary {
+        background-color: #aaaaaac8;
+        border-color: #aaaaaac8;
+        transition: background-color 0.3s ease;
+    }
+
+    .modal-footer .btn-secondary:hover {
+        background-color: #ddd;
+    }
+
+    .modal-body input {
+        margin-bottom: 15px;
+        border-radius: 8px;
+        padding: 12px;
+        font-size: 1em;
+        border: 2px solid #007bff;
+    }
+
+    .modal-body input:focus {
+        border-color: #0056b3;
+        outline: none;
+    }
+
+    .btn-close {
+        font-size: 1.2em;
+        color: #007bff;
+        background: none;
+        border: none;
+    }
+
+    .btn-close:hover {
+        color: #0056b3;
+    }
+</style>
